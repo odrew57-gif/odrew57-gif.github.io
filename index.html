@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drew Olson — Senior Client Success Lead</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F7F6F1;
+    --ink: #1C1E15;
+    --ink-mid: #525840;
+    --ink-light: #909680;
+    --accent: #5B6438;
+    --accent-dark: #3D4425;
+    --accent-mid: #7A8550;
+    --accent-light: #E8EBD9;
+    --accent-xlight: #F2F4EA;
+    --border: rgba(28,30,21,0.1);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(247,246,241,0.93);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 5vw;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .hero {
+    min-height: 100vh;
+    padding: 64px 5vw 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 80px;
+  }
+
+  .hero-text { padding-top: 40px; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(52px, 5vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-size: 17px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 44px;
+    font-weight: 300;
+  }
+
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 14px 32px;
+    background: var(--accent);
+    color: var(--cream);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+  .btn-ghost {
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 0.5px solid var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-visual {
+    position: relative;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Orbital card stack */
+  .hero-card-stack {
+    position: relative;
+    width: 380px;
+    height: 420px;
+  }
+
+  /* Each card is positioned by JS via CSS custom properties */
+  .hcard {
+    position: absolute;
+    border-radius: 6px;
+    overflow: hidden;
+    will-change: transform;
+  }
+
+  /* Card 1 — large dark feature card */
+  .hcard-1 {
+    width: 260px;
+    height: 310px;
+    background: var(--accent-dark);
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+    box-shadow: 0 12px 40px rgba(28,30,21,0.18);
+  }
+
+  .hcard-1-inner { color: white; }
+  .hcard-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.5; margin-bottom: 8px; }
+  .hcard-title { font-family: var(--serif); font-size: 20px; line-height: 1.25; }
+
+  /* Card 2 — medium accent stat card */
+  .hcard-2 {
+    width: 165px;
+    height: 200px;
+    background: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 40px rgba(91,100,56,0.25);
+  }
+
+  .hcard-2-inner { text-align: center; color: white; }
+  .big-num { font-family: var(--serif); font-size: 48px; line-height: 1; }
+  .big-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85; margin-top: 8px; line-height: 1.4; padding: 0 8px; }
+
+  /* Card 3 — small status pill */
+  .hcard-3 {
+    width: 170px;
+    height: 70px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    padding: 16px 18px;
+    gap: 12px;
+    border: 0.5px solid rgba(91,100,56,0.25);
+    box-shadow: 0 8px 24px rgba(28,30,21,0.08);
+  }
+
+  .hcard-3 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .hcard-3 .txt { font-size: 12px; color: var(--ink-mid); line-height: 1.35; }
+
+  /* Keyframes for each card's orbit — slow, offset, gentle */
+  @keyframes orbit1 {
+    0%   { transform: translate(0px,   0px)   rotate(0deg); }
+    25%  { transform: translate(10px, -14px)  rotate(0.8deg); }
+    50%  { transform: translate(4px,  -22px)  rotate(0deg); }
+    75%  { transform: translate(-8px, -10px)  rotate(-0.8deg); }
+    100% { transform: translate(0px,   0px)   rotate(0deg); }
+  }
+
+  @keyframes orbit2 {
+    0%   { transform: translate(0px,  0px)  rotate(0deg); }
+    25%  { transform: translate(-12px, 10px) rotate(-1deg); }
+    50%  { transform: translate(-6px,  18px) rotate(0deg); }
+    75%  { transform: translate(10px,  8px)  rotate(1deg); }
+    100% { transform: translate(0px,  0px)  rotate(0deg); }
+  }
+
+  @keyframes orbit3 {
+    0%   { transform: translate(0px,  0px)  rotate(0deg); }
+    25%  { transform: translate(8px,  12px) rotate(1.2deg); }
+    50%  { transform: translate(16px,  4px) rotate(0deg); }
+    75%  { transform: translate(6px, -10px) rotate(-1.2deg); }
+    100% { transform: translate(0px,  0px)  rotate(0deg); }
+  }
+
+  .hcard-1 { animation: orbit1 9s ease-in-out infinite; }
+  .hcard-2 { animation: orbit2 11s ease-in-out infinite; }
+  .hcard-3 { animation: orbit3 7s ease-in-out infinite; }
+
+  .stats-bar {
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    margin: 0 5vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-item {
+    padding: 36px 0;
+    text-align: center;
+    border-right: 0.5px solid var(--border);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 40px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  section { padding: 100px 5vw; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 24px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 3vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 24px;
+  }
+
+  /* Flip card wrapper */
+  .work-card {
+    cursor: pointer;
+    perspective: 1200px;
+  }
+
+  .work-card.wide  { grid-column: span 7; }
+  .work-card.narrow { grid-column: span 5; }
+  .work-card.half  { grid-column: span 6; }
+
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+
+  .work-card.flipped .card-inner { transform: rotateY(180deg); }
+
+  /* Front and back share the same face rules */
+  .card-front,
+  .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: white;
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+  }
+
+  /* Front is default visible */
+  .card-front { transform: rotateY(0deg); display: flex; flex-direction: column; }
+
+  /* Back is pre-rotated 180° */
+  .card-back {
+    transform: rotateY(180deg);
+    background: var(--accent-dark);
+    color: var(--cream);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32px;
+  }
+
+  .card-back-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .card-back-tags .tag { background: rgba(232,235,217,0.15); color: var(--accent-light); border: 0.5px solid rgba(232,235,217,0.25); }
+
+  .card-back-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--cream);
+  }
+
+  .card-back-body {
+    font-size: 14px;
+    line-height: 1.75;
+    font-weight: 300;
+    color: rgba(247,246,241,0.8);
+    flex-grow: 1;
+    margin-bottom: 24px;
+  }
+
+  .card-flip-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background: transparent;
+    transition: gap 0.2s;
+  }
+
+  /* Front flip button */
+  .card-front .card-flip-btn {
+    color: var(--accent);
+    margin: 0 24px 20px;
+  }
+
+  .card-front .card-flip-btn::after { content: '→'; }
+  .card-front .card-flip-btn:hover { gap: 12px; }
+
+  /* Back flip button (close) */
+  .card-back .card-flip-btn {
+    color: var(--accent-light);
+    align-self: flex-start;
+  }
+
+  .card-back .card-flip-btn::before { content: '←'; }
+  .card-back .card-flip-btn:hover { gap: 12px; }
+
+  /* Preserve height so grid doesn't collapse */
+  .work-card { min-height: 340px; }
+  .work-card.wide, .work-card.narrow { min-height: 420px; }
+
+  .work-thumb {
+    width: 100%;
+    aspect-ratio: 16/10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .thumb-1 { background: var(--accent-dark); }
+  .thumb-2 { background: var(--accent); }
+  .thumb-3 { background: var(--accent-mid); }
+  .thumb-4 { background: #2C3020; }
+
+  .thumb-label {
+    font-family: var(--serif);
+    font-size: 28px;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: -0.02em;
+    font-style: italic;
+    user-select: none;
+  }
+
+  .work-meta { padding: 24px; flex-grow: 1; }
+
+  .work-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+  .tag {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent-dark);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .work-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .work-desc { font-size: 14px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+
+  .skills-section { background: var(--accent-dark); color: var(--cream); }
+  .skills-section .section-title { color: var(--cream); }
+  .skills-section .section-label { color: var(--accent-light); }
+  .skills-section .section-header { border-bottom-color: rgba(255,255,255,0.1); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(255,255,255,0.05);
+    border: 0.5px solid rgba(255,255,255,0.1);
+  }
+
+  .skill-group {
+    background: var(--accent-dark);
+    padding: 40px 32px;
+    border-right: 0.5px solid rgba(255,255,255,0.08);
+  }
+
+  .skill-group:last-child { border-right: none; }
+
+  .skill-group-title {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 28px;
+  }
+
+  .skill-list { list-style: none; }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(247,246,241,0.85);
+  }
+
+  .skill-item::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    flex-shrink: 0;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* Profile photo */
+  .about-photo-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 40px;
+  }
+
+  .about-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
+    border: 3px solid var(--accent-light);
+    box-shadow: 0 8px 28px rgba(28,30,21,0.12);
+  }
+
+  .about-intro { display: flex; flex-direction: column; justify-content: center; }
+
+  .about-name {
+    font-family: var(--serif);
+    font-size: 28px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .about-role {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .about-bio {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--ink-mid);
+    margin-bottom: 28px;
+  }
+
+  .about-bio strong { color: var(--ink); font-weight: 500; }
+
+  .about-interests {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .interest-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--accent-dark);
+    background: var(--accent-light);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+
+  /* Work card image support */
+  .work-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-right {
+    padding: 48px;
+    background: var(--accent-dark);
+    color: var(--cream);
+    position: sticky;
+    top: 80px;
+  }
+
+  .contact-title {
+    font-family: var(--serif);
+    font-size: 36px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .contact-subtitle { font-size: 15px; opacity: 0.5; margin-bottom: 36px; font-weight: 300; }
+
+  .contact-fields { display: flex; flex-direction: column; }
+
+  .contact-field { border-bottom: 0.5px solid rgba(255,255,255,0.1); padding: 20px 0; }
+
+  .cf-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-light);
+    margin-bottom: 6px;
+  }
+
+  .cf-value { font-size: 15px; font-weight: 300; opacity: 0.85; }
+  .cf-value a { color: inherit; text-decoration: none; }
+  .cf-value a:hover { text-decoration: underline; }
+
+  .contact-btn {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 16px 36px;
+    background: var(--accent);
+    color: white;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+    text-decoration: none;
+  }
+
+  .contact-btn:hover { background: var(--accent-mid); }
+
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 32px 5vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name { font-family: var(--serif); font-size: 16px; color: var(--ink); }
+  .footer-note { font-size: 12px; color: var(--ink-light); letter-spacing: 0.04em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+
+  /* ─── TABLET (≤900px) ─────────────────────────────────── */
+  @media (max-width: 900px) {
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 12px; }
+    .hero { grid-template-columns: 1fr; gap: 0; min-height: auto; padding: 100px 6vw 60px; }
+    .hero-visual { height: 380px; margin-top: 40px; }
+    .hero-card-stack { width: 320px; height: 340px; }
+    .hcard-1 { width: 220px; height: 260px; }
+    .hcard-title { font-size: 17px; }
+    .hcard-2 { width: 140px; height: 170px; }
+    .big-num { font-size: 38px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .stat-item:nth-child(2) { border-right: none; }
+    .stat-item:nth-child(3) { border-right: 0.5px solid var(--border); border-top: 0.5px solid var(--border); }
+    .stat-item:nth-child(4) { border-top: 0.5px solid var(--border); }
+    .work-card.wide, .work-card.narrow, .work-card.half { grid-column: span 12; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-group { border-right: none; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+    .skill-group:last-child { border-bottom: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-right { position: static; }
+  }
+
+  /* ─── MOBILE (≤600px) ─────────────────────────────────── */
+  @media (max-width: 600px) {
+    nav { padding: 0 5vw; }
+    .nav-links { gap: 14px; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.04em; }
+    .hero { padding: 88px 5vw 48px; }
+    .hero-text { padding-top: 0; }
+    .hero h1 { font-size: clamp(38px, 10vw, 54px); margin-bottom: 20px; }
+    .hero-sub { font-size: 15px; margin-bottom: 32px; max-width: 100%; }
+    .hero-ctas { flex-direction: column; gap: 12px; }
+    .btn-primary, .btn-ghost { width: 100%; text-align: center; padding: 16px 24px; }
+    .hero-visual { height: 300px; margin-top: 36px; }
+    .hero-card-stack { width: 100%; max-width: 320px; height: 280px; }
+    .hcard-1 { width: 190px; height: 220px; top: 20px !important; right: 0 !important; left: auto !important; padding: 18px; }
+    .hcard-title { font-size: 15px; }
+    .hcard-label { font-size: 10px; }
+    .hcard-2 { width: 120px; height: 145px; top: 10px !important; left: 0 !important; }
+    .big-num { font-size: 32px; }
+    .big-label { font-size: 10px; }
+    .hcard-3 { width: 150px; height: 60px; bottom: 0 !important; left: 50% !important; transform: translateX(-50%); animation: none !important; padding: 12px 14px; }
+    .hcard-3 .txt { font-size: 11px; }
+    .stats-bar { margin: 0 5vw; grid-template-columns: repeat(2, 1fr); }
+    .stat-num { font-size: 30px; }
+    .stat-label { font-size: 10px; }
+    section { padding: 64px 5vw; }
+    .section-header { margin-bottom: 40px; }
+    .work-grid { gap: 16px; }
+    .work-card.wide, .work-card.narrow, .work-card.half { grid-column: span 12; }
+    .work-title { font-size: 18px; }
+    .work-meta { padding: 18px; }
+    .skill-group { padding: 28px 20px; }
+    .about-grid { gap: 36px; }
+    .about-photo-wrap { flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+    .about-photo { width: 120px; height: 120px; }
+    .about-interests { justify-content: center; }
+    .about-bio { font-size: 16px; margin-bottom: 24px; }
+    .about-right { padding: 28px; }
+    .contact-title { font-size: 28px; }
+    .contact-btn { width: 100%; text-align: center; padding: 16px 24px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px 5vw; }
+  }
+
+  /* ─── SMALL PHONE (≤390px) ─────────────────────────────── */
+  @media (max-width: 390px) {
+    .nav-links { gap: 10px; }
+    .nav-links a { font-size: 10px; }
+    .hero h1 { font-size: 34px; }
+    .hcard-1 { width: 165px; height: 200px; }
+    .hcard-2 { width: 108px; height: 132px; }
+    .big-num { font-size: 28px; }
+  }
+
+  /* ─── FLIP CARD MOBILE ───────────────────────────────────── */
+  @media (max-width: 600px) {
+    .work-card, .work-card.wide, .work-card.narrow { min-height: 380px; }
+    .card-back { padding: 24px; }
+    .card-back-title { font-size: 18px; }
+    .card-back-body { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Drew Olson</a>
+  <ul class="nav-links">
+    <li><a href="#work">Case Work</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-tag">Senior Client Success Lead</span>
+    <h1>Business Minded.<br><em>Revenue results.</em></h1>
+    <p class="hero-sub">Extensive experience nurturing client relationships and executing strategy — from positioning and messaging to conversion and growth.</p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn-primary">View my work</a>
+      <a href="#contact" class="btn-ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <!-- Card 1: large feature card, top-right -->
+      <div class="hcard hcard-1" style="top: 30px; right: 0;">
+        <div class="hcard-1-inner">
+          <div class="hcard-label">Featured Achievement</div>
+          <div class="hcard-title">B2B Sales Growth — 300% Increase in End-Stage Pipeline Size</div>
+        </div>
+      </div>
+      <!-- Card 2: stat card, top-left, clear of card 1 -->
+      <div class="hcard hcard-2" style="top: 10px; left: 0;">
+        <div class="hcard-2-inner">
+          <div class="big-num">$25M</div>
+          <div class="big-label">Yearly E-Commerce Volume Managed</div>
+        </div>
+      </div>
+      <!-- Card 3: status pill, bottom-center -->
+      <div class="hcard hcard-3" style="bottom: 10px; left: 100px;">
+        <div class="dot"></div>
+        <div class="txt">Open to full-time in person and remote roles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">9+</div><div class="stat-label">Years of Industry Experience</div></div>
+  <div class="stat-item"><div class="stat-num">120+</div><div class="stat-label">Clients Managed</div></div>
+  <div class="stat-item"><div class="stat-num">8×</div><div class="stat-label">Average ROI</div></div>
+  <div class="stat-item"><div class="stat-num">9/10</div><div class="stat-label">Average NPS</div></div>
+</div>
+
+<section id="work">
+  <div class="section-header">
+    <div>
+      <div class="section-label">My Work</div>
+      <h2 class="section-title">Campaigns &amp; projects</h2>
+    </div>
+  </div>
+  <div class="work-grid">
+
+    <!-- Card 1: E-Commerce -->
+    <div class="work-card wide" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="work-thumb thumb-1">
+            <img src="assets/images/case-ecommerce.jpg" alt="E-Commerce Growth" onerror="this.style.display='none'">
+            <span class="thumb-label">Sell. More. Furniture.</span>
+          </div>
+          <div class="work-meta">
+            <div class="work-tags"><span class="tag">E-Commerce Strategy</span><span class="tag">Omni-channel</span><span class="tag">Customer Experience</span></div>
+            <div class="work-title">41% Shopping Cart Sales Growth — Proprietary omni-channel strategy</div>
+            <p class="work-desc">Developed a multi-phase client e-commerce strategy planning merchandising, brand positioning, multi-channel advertising, and a critical analytics flow.</p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))">Learn more </button>
+        </div>
+        <div class="card-back">
+          <div>
+            <div class="card-back-tags"><span class="tag">E-Commerce Strategy</span><span class="tag">Omni-channel</span><span class="tag">Customer Experience</span></div>
+            <div class="card-back-title">41% Shopping Cart Sales Growth</div>
+            <p class="card-back-body">
+              [Placeholder — update with your own detail.] This engagement involved a full audit of the client's existing e-commerce funnel, identifying friction points across the checkout experience and product discovery flow. A multi-phase strategy was developed covering SKU-level merchandising prioritization, unified advertising creative across Google Shopping, Meta, and email retargeting, and implementation of a custom analytics dashboard to track attribution across all channels. The result was a 41% lift in shopping cart sales within two quarters of execution.
+            </p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))"> Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: SaaS Marketing -->
+    <div class="work-card narrow" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="work-thumb thumb-2">
+            <img src="assets/images/case-saas.jpg" alt="SaaS Marketing" onerror="this.style.display='none'">
+            <span class="thumb-label">Scale in SaaS</span>
+          </div>
+          <div class="work-meta">
+            <div class="work-tags"><span class="tag">Brand Strategy</span><span class="tag">Selling Process</span></div>
+            <div class="work-title">SaaS Marketing Strategy — 10x Increase in warm leads</div>
+            <p class="work-desc">Created and executed a "Website Assessment" campaign including an advertising campaign, custom prospect deliverable, and improved selling process from discovery to close.</p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))">Learn more </button>
+        </div>
+        <div class="card-back">
+          <div>
+            <div class="card-back-tags"><span class="tag">Brand Strategy</span><span class="tag">Selling Process</span></div>
+            <div class="card-back-title">SaaS Marketing Strategy — 10x Warm Lead Growth</div>
+            <p class="card-back-body">
+              [Placeholder — update with your own detail.] Identified a gap in the company's outbound strategy: prospects weren't understanding the platform's value until deep in the sales cycle. Designed a "Website Assessment" campaign that delivered a personalized audit report to prospects as the first touchpoint — giving the sales team a warm, consultative entry into each conversation. Combined with a refined discovery-to-close sequence, the campaign produced a 10x increase in qualified warm leads within the first 90 days.
+            </p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))"> Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Agency Partner Program -->
+    <div class="work-card half" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="work-thumb thumb-3">
+            <img src="assets/images/case-agency.jpg" alt="Agency Partner Program" onerror="this.style.display='none'">
+            <span class="thumb-label">Agency Partner Program</span>
+          </div>
+          <div class="work-meta">
+            <div class="work-tags"><span class="tag">Industry Networking</span><span class="tag">Presenting</span></div>
+            <div class="work-title">Marketing Agency Partner Program — Referral growth strategy</div>
+            <p class="work-desc">Designed and piloted a collaborative agency partner program giving marketers direct platform access to mutual dealers to increase billable hour opportunities.</p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))">Learn more </button>
+        </div>
+        <div class="card-back">
+          <div>
+            <div class="card-back-tags"><span class="tag">Industry Networking</span><span class="tag">Presenting</span></div>
+            <div class="card-back-title">Marketing Agency Partner Program</div>
+            <p class="card-back-body">
+              [Placeholder — update with your own detail.] Recognized that independent marketing agencies servicing furniture retailers were an underutilized referral channel. Designed a formal partner program that gave agency partners direct platform access, co-branded collateral, and a dedicated support lane — reducing friction for agencies recommending the platform to their dealer clients. Piloted with a cohort of regional agencies, presenting the program at an industry event. The program created a new referral pipeline and increased billable opportunities for participating agencies.
+            </p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))"> Back</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Paid Search -->
+    <div class="work-card half" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <div class="work-thumb thumb-4">
+            <img src="assets/images/case-paidsearch.jpg" alt="Paid Search" onerror="this.style.display='none'">
+            <span class="thumb-label">Google Ad Optimization</span>
+          </div>
+          <div class="work-meta">
+            <div class="work-tags"><span class="tag">Paid Search</span><span class="tag">SEO &amp; GEO</span></div>
+            <div class="work-title">Pivoted client into paid search — 300% growth in Active Users</div>
+            <p class="work-desc">Planned and executed a Paid Search Strategy resulting in 300% growth in Active Users (Paid Search), and a 15x ROAS.</p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))">Learn more </button>
+        </div>
+        <div class="card-back">
+          <div>
+            <div class="card-back-tags"><span class="tag">Paid Search</span><span class="tag">SEO &amp; GEO</span></div>
+            <div class="card-back-title">Paid Search Pivot — 300% User Growth, 15× ROAS</div>
+            <p class="card-back-body">
+              [Placeholder — update with your own detail.] The client had relied exclusively on organic traffic and was seeing stagnating growth. Conducted a keyword opportunity analysis and competitive audit, then built the case for a paid search investment. Developed the full campaign architecture — including ad group structure, match type strategy, and landing page alignment — and managed execution through Google Ads. Within the campaign's first active period, active paid search users grew 300% and the account achieved a 15x return on ad spend, significantly outperforming the client's previous channel mix.
+            </p>
+          </div>
+          <button class="card-flip-btn" onclick="event.stopPropagation(); flipCard(this.closest('.work-card'))"> Back</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills" class="skills-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Capabilities</div>
+      <h2 class="section-title">Skills &amp; tools</h2>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Strategy</div>
+      <ul class="skill-list">
+        <li class="skill-item">Omni-channel advertising</li>
+        <li class="skill-item">Brand positioning</li>
+        <li class="skill-item">Competitive market analysis</li>
+        <li class="skill-item">Trend research</li>
+        <li class="skill-item">Budget management</li>
+        <li class="skill-item">Customer journey &amp; lifecycles</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Execution</div>
+      <ul class="skill-list">
+        <li class="skill-item">Paid media (Google &amp; Meta)</li>
+        <li class="skill-item">Email &amp; marketing automation</li>
+        <li class="skill-item">Account-based marketing</li>
+        <li class="skill-item">SEO &amp; GEO strategy</li>
+        <li class="skill-item">Conversion optimization</li>
+        <li class="skill-item">GTM configuration</li>
+      </ul>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Tools</div>
+      <ul class="skill-list">
+        <li class="skill-item">HubSpot</li>
+        <li class="skill-item">Microsoft Clarity</li>
+        <li class="skill-item">Google Analytics 4</li>
+        <li class="skill-item">Google Ads</li>
+        <li class="skill-item">Data Studio</li>
+        <li class="skill-item">Google Tag Manager</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-left">
+      <div class="section-label">About</div>
+      <h2 class="section-title" style="margin-bottom: 32px;">Strategy-first.<br>Results-obsessed.</h2>
+
+      <div class="about-photo-wrap">
+        <img
+          class="about-photo"
+          src="assets/images/headshot.jpg"
+          alt="Drew Olson"
+        />
+        <div class="about-intro">
+          <div class="about-name">Drew Olson</div>
+          <div class="about-role">Senior Client Success Lead</div>
+        </div>
+      </div>
+
+      <p class="about-bio">
+        From my first role on a furniture retail floor to managing <strong>$25M+ in annual e-commerce volume</strong>, I've been drawn to the nuance of business challenges across industries. I'm energized by hard problems and even more energized by the results that follow — whether that's a breakthrough campaign, a client who finally sees their numbers move, or a strategy that simply works.
+      </p>
+      <p class="about-bio">
+        I'm currently exploring full-time roles in <strong>digital advertising, e-commerce strategy, or executive account management</strong> — open to in-person and remote opportunities.
+      </p>
+
+      <div class="about-interests">
+        <span class="interest-tag">🎵 Independent Musician &amp; Producer</span>
+        <span class="interest-tag">👨‍👧‍👧 Father of Two</span>
+        <span class="interest-tag">🌲 Outdoors Enthusiast</span>
+      </div>
+    </div>
+    <div id="contact" class="about-right">
+      <div class="contact-title">Let's work<br>together.</div>
+      <div class="contact-subtitle">Open to new opportunities</div>
+      <div class="contact-fields">
+        <div class="contact-field"><div class="cf-label">Email</div><div class="cf-value"><a href="mailto:odrew57@gmail.com">odrew57@gmail.com</a></div></div>
+        <div class="contact-field"><div class="cf-label">LinkedIn</div><div class="cf-value"><a href="https://www.linkedin.com/in/drew-olson-78324b186/"><strong>View My Profile</strong></a></div></div>
+        <div class="contact-field"><div class="cf-label">Location</div><div class="cf-value">St. Paul, MN — remote-friendly</div></div>
+        <div class="contact-field"><div class="cf-label">Availability</div><div class="cf-value">Looking for full-time employment</div></div>
+      </div>
+      <button class="contact-btn" onclick="window.location.href='mailto:odrew57@gmail.com'">Message Me</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Drew Olson</div>
+  <div class="footer-note">Senior Client Success Lead · St. Paul, MN</div>
+</footer>
+
+<script>
+  function flipCard(card) {
+    card.classList.toggle('flipped');
+  }
+</script>
+</body>
+</html>
